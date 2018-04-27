@@ -8,6 +8,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.zhy.autolayout.config.UseLandscape;
+
 /**
  * Created by zhy on 15/12/4.<br/>
  * form http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels/15699681#15699681
@@ -51,6 +53,12 @@ public class ScreenUtils
             size[0] = widthPixels;
             size[1] = heightPixels - getStatusBarHeight(context);
 
+            //如果是横屏，则把宽高切换一下
+            if (context instanceof UseLandscape && widthPixels < heightPixels){
+                size[0] = heightPixels;
+                size[1] = widthPixels - getStatusBarHeight(context);
+            }
+
             return size;
         }
 
@@ -76,6 +84,13 @@ public class ScreenUtils
             }
         size[0] = widthPixels;
         size[1] = heightPixels;
+
+        //如果是横屏，则把宽高切换一下
+        if (context instanceof UseLandscape && widthPixels < heightPixels){
+            size[0] = heightPixels;
+            size[1] = widthPixels;
+        }
+
         return size;
     }
 
